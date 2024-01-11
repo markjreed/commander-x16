@@ -11,7 +11,7 @@ It's mostly just there for watching, but it does have a few controls:
 | + | Go faster (though it starts pretty close to max speed)
 | - | Go slower
 | 0 | Jump to max speed (set delay to 0)
-| M | Switch to a festive Mardi Gras color theme
+| M | Switch to a festive Mardi Gras color theme (screenshot below)
 | G | Switch back to the default all-green theme
 |Any other key| Exit to BASIC
 
