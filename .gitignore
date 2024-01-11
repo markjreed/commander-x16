@@ -1,2 +1,3 @@
 *.asm
 *.vice-mon-list
+**/.DS_Store
