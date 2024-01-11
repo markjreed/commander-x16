@@ -9,6 +9,7 @@ This makes the screen rain green PETSCII.  It's mostly just there for watching, 
 | 0 | Jump to max speed
 | M | Switch to a festive Mardi Gras color theme
 | G | Switch back to the default all-green theme
+|Any other key| Exit to BASIC
 
 
 |File |Description|
