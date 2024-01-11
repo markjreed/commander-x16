@@ -1,6 +1,10 @@
 # MATRIX Digital Rain for the Commander X16
 #
-This makes the screen rain green PETSCII.  It's mostly just there for watching, but it does have a few controls:
+This makes the screen rain green PETSCII.  
+
+![screenshot](screenshot-green.png)
+
+It's mostly just there for watching, but it does have a few controls:
 
 |Key |Function|
 |--------|-----------|
@@ -11,6 +15,7 @@ This makes the screen rain green PETSCII.  It's mostly just there for watching, 
 | G | Switch back to the default all-green theme
 |Any other key| Exit to BASIC
 
+![Mardi Gras mode](screenshot-mardi-gras.png)
 
 |File |Description|
 |--------|-----------|
