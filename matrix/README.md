@@ -23,3 +23,4 @@ It's mostly just there for watching, but it does have a few controls:
 | [matrix.prg](matrix.prg) | RUNnable executable |
 | [matrix.p8](matrix.p8)  | [Prog8](https://prog8.readthedocs.io) source code
 | [Makefile](Makefile)   | Build script
+| [ACKNOWLEDGEMENTS](ACKNOWLEDGEMENTS)  | Special thanks |
