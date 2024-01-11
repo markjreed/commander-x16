@@ -32,7 +32,7 @@ main {
                          $d9, $df, $d8, $de, $d7, $dd, $d6, $00 ]
 
 
-    ; Y coordinate of the bottom of the drop in each column (1 to height, 0=no drop there)
+    ; Y coordinate of the bottom of the drop in each column (1-based; 0 means no drop there)
     ubyte[80] bottom
 
     ; speed of each drop
