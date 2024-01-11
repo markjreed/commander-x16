@@ -5,4 +5,4 @@ Unless otherwise indicated in the individual project folder, all of the software
 
 |Project |Description|
 |--------|-----------|
-| [matrix](matrix/) | A PETSCII version of the digital rain display from _The Matrix_
+| [matrix](matrix/) | A PETSCII version of the digital rain display from _The Matrix_ (Prog8).
