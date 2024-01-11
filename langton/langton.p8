@@ -33,14 +33,14 @@ main {
     sub banner(bool bitmap) {
 
         if not bitmap  {
-            txt.color2(0, 1)
+            txt.color2(2, 1)
             txt.clear_screen()
             txt.chrout($12)
             txt.print(stars)
         } else {
             gfx2.clear_screen(1)
             gfx2.text_charset(2)
-            gfx2.fillrect(0, 0, width-1, 8, 0)
+            gfx2.fillrect(0, 0, width-1, 8, 2)
             gfx2.text(0, 0, 1, gfx_stars)
             gfx2.text(width-32, 0, 1, gfx_stars)
         }
@@ -76,29 +76,37 @@ main {
         return result
     }
 
+    sub randomize_grid() {
+        for ant_y in height/3 to 2*height/3 {
+            for ant_x in width/3 to 2*width/3 {
+                if math.rnd() & 1 { gfx2.plot(ant_x, ant_y, 0) }
+            }
+        }
+    }
+
     sub update_status() {
         if not status_initialized {
-            gfx2.fillrect(0, height-8, width-1, 8, 0)
+            gfx2.fillrect(0, height-8, width-1, 8, 2)
             gfx2.text( 0, height - 8, 1, status_line)
             gfx2.text(80, height - 8, 1, gfx_directions[direction])
             status_initialized = true
         }
-        gfx2.fillrect(208, height-8, 40, 8, 0)
+        gfx2.fillrect(208, height-8, 40, 8, 2)
         gfx2.text(208, height-8, 1, gfx_directions[direction])
 
-        gfx2.fillrect(208, height-8, 40, 8, 0)
+        gfx2.fillrect(208, height-8, 40, 8, 2)
         gfx2.text(208, height-8, 1, gfx_directions[direction])
 
         conv.str_uw(ant_x)
-        gfx2.fillrect(328, height-8, 24, 8, 0)
+        gfx2.fillrect(328, height-8, 24, 8, 2)
         gfx2.text(328, height-8, 1, conv.string_out)
 
         conv.str_uw(ant_y)
-        gfx2.fillrect(392, height-8, 24, 8, 0)
+        gfx2.fillrect(392, height-8, 24, 8, 2)
         gfx2.text(392, height-8, 1, conv.string_out)
 
         conv.str_uw(steps)
-        gfx2.fillrect(584, height-8, 40, 8, 0)
+        gfx2.fillrect(584, height-8, 40, 8, 2)
         gfx2.text(584, height-8, 1, conv.string_out)
     }
 
@@ -128,12 +136,19 @@ main {
             }
         } until direction < 4
         txt.print(directions[direction])
+        txt.print("\n\n")
+        txt.print("initial grid (e)mpty or (r)andom (er, default=empty): ")
+        do {
+            key = cbm.GETIN()
+        } until key == 'e' or key == 'r'
         gfx2.screen_mode(2)
         banner(true)
+        if key == 'r' { randomize_grid() }
         ant_x = width / 2
         ant_y = height / 2
         while ant_x >= 0 and ant_x < width and ant_y >= 8 and ant_y < height-8 {
             color = gfx2.pget(ant_x, ant_y)
+            gfx2.plot(ant_x, ant_y, 2)
             if color {
                 ; white square, turn right
                 direction = (direction + 1) % 4
