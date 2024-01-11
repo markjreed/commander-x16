@@ -10,6 +10,10 @@
 
 
 main {
+    ; the bit in the VERA layer configuration register that toggles 256-color
+    ; text mode
+    const ubyte T256C = 8
+    
     ; number of colors and names for them
     const ubyte color_range = 3
     const ubyte GREEN  = 0
@@ -107,7 +111,7 @@ main {
         math.rndseed(cx16.r2, cx16.r1)
 
         ; enable 256-color text mode
-        cx16.VERA_L1_CONFIG = (cx16.VERA_L1_CONFIG & 247) | 8
+        cx16.VERA_L1_CONFIG = (cx16.VERA_L1_CONFIG & ~T256C) | T256C
 
         ; get screen dimensions - works in non-default resolutions
         get_screen()
