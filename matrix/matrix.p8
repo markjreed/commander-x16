@@ -13,7 +13,7 @@ main {
     ; the bit in the VERA layer configuration register that toggles 256-color
     ; text mode
     const ubyte T256C = 8
-    
+
     ; number of colors and names for them
     const ubyte color_range = 3
     const ubyte GREEN  = 0
@@ -220,7 +220,7 @@ main {
            }
         } until key != 0
 
-        ; clean up 
+        ; clean up
         txt.color2(5,0)
         txt.clear_screen()
         mardi_gras()
