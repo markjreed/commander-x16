@@ -84,25 +84,25 @@ main {
 
     ; switch to all-green theme
     sub all_green() {
-         for i in 0 to len(greens) {
-             if not saved {
-                 saved_colors[yellows[i]] = get_color(yellows[i])
-                 saved_colors[purples[i]] = get_color(purples[i])
-             }
-             palette.set_color(yellows[i], get_color(greens[i]))
-             palette.set_color(purples[i], get_color(greens[i]))
-         }
-         saved = true
+        for i in 0 to len(greens) {
+            if not saved {
+                saved_colors[yellows[i]] = get_color(yellows[i])
+                saved_colors[purples[i]] = get_color(purples[i])
+            }
+            palette.set_color(yellows[i], get_color(greens[i]))
+            palette.set_color(purples[i], get_color(greens[i]))
+        }
+        saved = true
     }
 
     ; switch to Mardi Gras theme
     sub mardi_gras() {
-         if saved {
-             for i in 0 to len(greens) {
-                 palette.set_color(yellows[i], saved_colors[yellows[i]])
-                 palette.set_color(purples[i], saved_colors[purples[i]])
-             }
-         }
+        if saved {
+            for i in 0 to len(greens) {
+                palette.set_color(yellows[i], saved_colors[yellows[i]])
+                palette.set_color(purples[i], saved_colors[purples[i]])
+            }
+        }
     }
 
     sub start() {
@@ -133,7 +133,6 @@ main {
 
                ; update all the drops moving fast enough to move this tick
                if bottom[i] and ticks % speed_range < speed[i] {
-
 
                    ; determine the visible portion of the trail
                    j1 = bottom[i]
@@ -212,11 +211,11 @@ main {
            ; handle any keypress that came in
            key = cbm.GETIN()
            when key {
-              '0' -> { delay=0 key=0 }
-              '+' -> { if delay { delay-- } key = 0 }
-              '-' -> { if delay < $ff { delay++ } key = 0 }
-              'g' -> { all_green() key = 0 }
-              'm' -> { mardi_gras() key = 0 }
+               '0' -> { delay=0 key=0 }
+               '+' -> { if delay { delay-- } key = 0 }
+               '-' -> { if delay < $ff { delay++ } key = 0 }
+               'g' -> { all_green() key = 0 }
+               'm' -> { mardi_gras() key = 0 }
            }
         } until key != 0
 
