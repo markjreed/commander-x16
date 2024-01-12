@@ -6,4 +6,4 @@ Unless otherwise indicated in the individual project folder, all of the software
 |Project |Description|
 |--------|-----------|
 | [matrix](matrix/) | A PETSCII version of the digital rain display from _The Matrix_ (Prog8).
-| [langton](langton/) | Simulation of [Langton's Ant](https://en.wikipedia.org/wiki/Langton's_Ant) (Prog8).
+| [langtons-ant](langtons-ant/) | Simulation of [Langton's Ant](https://en.wikipedia.org/wiki/Langton's_Ant) (Prog8).
