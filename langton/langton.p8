@@ -140,7 +140,7 @@ main {
         txt.print("initial grid (e)mpty or (r)andom (er, default=empty): ")
         do {
             key = cbm.GETIN()
-        } until key == 'e' or key == 'r'
+        } until key == 'e' or key == 'r' or key == 13
         gfx2.screen_mode(2)
         banner(true)
         if key == 'r' { randomize_grid() }
