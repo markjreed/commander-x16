@@ -11,6 +11,6 @@ high-resolution 640x480 bitmap graphics mode.
 |File |Description|
 |--------|-----------|
 | README.md  | This file |
-| [langton.prg](langton.prg) | RUNnable executable |
-| [langton.p8](langton.p8)  | [Prog8](https://prog8.readthedocs.io) source code
+| [langtons-ant.prg](langtons-ant.prg) | RUNnable executable |
+| [langtons-ant.p8](langtons-ant.p8)  | [Prog8](https://prog8.readthedocs.io) source code
 | [Makefile](Makefile)   | Build script
