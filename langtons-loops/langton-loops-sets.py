@@ -79,9 +79,11 @@ def main():
             w = states.get(f'{x-1},{y}',0)
             key = f'{self}{n}{e}{s}{w}'
             if key in transition_table:
-                buffer[coords] = transition_table[key]
+                new = transition_table[key]
             else:
-                buffer[coords] = self
+                new = self
+            if new:
+                buffer[coords] = new
 
         states = buffer
         for i in range(cell_height):
