@@ -5,9 +5,9 @@ import sys
 import time
 import tkinter
 
-cell_size     = 4
-canvas_width  = 320
-canvas_height = 240
+cell_size     = 8
+canvas_width  = 640
+canvas_height = 480
 
 state_colors = [ 'black',  'blue',   'red',   'green',
                  'yellow', 'magenta','white', 'cyan' ]
@@ -38,8 +38,8 @@ tk.protocol('WM_DELETE_WINDOW', on_close)
 def main():
     cell_width  = canvas_width  // cell_size
     cell_height = canvas_height // cell_size 
-    corner_x = -32
-    corner_y = -25
+    corner_y = (len(loop)    - cell_height) // 2
+    corner_x = (len(loop[0]) - cell_width)  // 2
     items = []
     states = {}
     for y, row in enumerate(loop):
