@@ -14,12 +14,7 @@ main {
     const ubyte inverse_space = $a0
 
     sub get_state(uword buffer, ubyte i, ubyte j) -> ubyte {
-        uword addr = buffer + (i as uword) * ((width/2) as uword) + ((j/2) as uword)
-        ;txt.print("buffer=") txt.print_uw(buffer)
-        ;txt.print("i=") txt.print_ub(i)
-        ;txt.print(",j=") txt.print_ub(j)
-        ;txt.print("; addr=") txt.print_uw(addr) txt.nl()
-        ubyte pair = @(addr)
+        ubyte pair = buffer[(i as uword) * ((width/2) as uword) + ((j/2) as uword)]
         if j & 1 {
             return pair & $0f
         } else {
