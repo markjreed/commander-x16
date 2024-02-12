@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+main() {
+    local svg_file png_file ppm_file base
+    for svg_file in "$@"; do
+        base=${svg_file%.svg}
+        png_file="$base.png"
+        ppm_file="$base.ppm"
+        svgexport "$svg_file" "$png_file" 84:130
+        convert "$png_file" \
+            -crop 56x56+14+14 \
+            -background white \
+            -gravity center \
+            -extent 64x64 \
+            -compress none \
+            +depth +dither  \
+            -remap c64colors.png \
+            "$ppm_file"
+        ./makespr "$ppm_file" common.pal
+    done
+}
+main "$@"

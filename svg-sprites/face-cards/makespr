@@ -1,0 +1,68 @@
+#!/usr/bin/env raku
+unit sub MAIN($ppm-file,
+              $pal-file is copy = (Any),
+              $spr-file is copy = (Any),
+);
+
+use Sprite;
+
+my $base = $ppm-file.split('.')[0..*-2].join('.');
+$spr-file //= "$base.spr";
+$pal-file //= "$base.pal";
+
+my %palette = $pal-file.IO.lines.kv.map: -> $k, $v { $v => $k };
+
+my @sizes  = 8, 16, 32, 64;
+my @depths = 4, 8;
+
+my $words := gather for $ppm-file.IO.lines -> $line is copy {
+    $line .= subst(/'#'.*$/, '');
+    .take for $line.words;
+}
+
+my $magic = $words[0];
+my ($width, $height, $max-color) = $words[1..^4]».Int;
+if $magic ne 'P3' {
+    die "{~$*PROGRAM}: bad PPM file: $ppm-file\n";
+}
+
+my ($sprite-width, $sprite-height);
+for @sizes.kv -> $i, $size { 
+    if $width == $size {
+        $sprite-width = $i;
+    }
+    if $height == $size {
+        $sprite-height = $i;
+    }
+}
+if !(defined($sprite-width) && defined($sprite-height)) {
+    die "{~$*PROGRAM}: unsuitable dimensions for sprite $width x $height";
+}
+
+my $sprite = Sprite.new($spr-file, $width, $height, 4);
+
+my $windex = 4;
+my $new-max = 15;
+my $byte = 0;
+for ^$height -> $y {
+    for ^$width -> $x {
+        my $color-word = 0;
+        my $key = '#';
+        for «red green blue» {
+            my $value = $words[$windex++];
+            my $scaled = ($value * $new-max + $max-color div 2) div $max-color;
+            $color-word = $color-word * 16 + $scaled;
+            $key ~= $scaled.base(16)
+        }
+        if %palette{$key}:!exists {
+            die "{$*PROGRAM}: bad color $key.\n";
+        }
+        $byte = $byte * 16 + %palette{$key};
+        if $x % 2 {
+            #say "Writing index for {$x-1},$y and $x, $y";
+            $sprite.add($byte);
+            $byte = 0;
+        }
+    }
+}
+$sprite.write-basic;
