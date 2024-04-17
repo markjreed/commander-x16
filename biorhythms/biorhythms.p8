@@ -151,7 +151,7 @@ main {
 
                     txt.color2(13, 0)
                     tui.center(26, "<- -> Move by week")
-                    tui.center(28, "New [D]ate    New [P]erson")
+                    tui.center(28, "New [D]ate  New [P]erson  [Q]uit")
                     ubyte key = txt.waitkey()
                     when key {
                         'q' -> done = true
