@@ -25,6 +25,5 @@ The default target date is obtained from the X16's on-board real-time clock.
 | [datepicker.p8](datepicker.p8)   | Date picker widget        |
 | [dates.p8](dates.p8)             | Date library              |
 | [textbox.p8](textbox.p8)         | Text box widget           |
-| [tui.p8](tui.p8)                 | Generic TUI utilities (currently just a |
-|                                  | text-centering function)  |
+| [tui.p8](tui.p8)                 | Generic TUI utilities (currently just a text-centering function)  |
 | [Makefile](Makefile)             | Build script
