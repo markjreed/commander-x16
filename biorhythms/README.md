@@ -15,7 +15,7 @@ of that range, from January 1, 1912 to December 31, 2089.
 
 The default target date is obtained from the X16's on-board real-time clock.
 
-![chart](screenshot-chart.png)
+![chart](screenshot-chart.png?)
 
 |File |Description|
 |--------|-----------|
