@@ -16,6 +16,8 @@ tui {
         "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
     ]
 
+    bool canceled
+
     sub datepicker(ubyte x, ubyte y, ubyte week_start, word default_value) -> word {
          bool done  = false
          uword year, old_year, yr
@@ -95,7 +97,15 @@ tui {
              tui.center(26, "Move with cursor, tab, PgUp/Down")
              tui.center(28, "Or type new year or month initial")
              key = txt.waitkey()
-             if cursor == 0 {
+             if key == 3 {
+                 txt.plot(0, 25)
+                 sys.exit(130)
+             }
+             else if key == 27 {
+                 canceled = true
+                 done = true
+             }
+             else if cursor == 0 {
                  when key {
                        9 -> { result = dates.new(year + 1, month, day) }
                       17 -> { result += 7 }

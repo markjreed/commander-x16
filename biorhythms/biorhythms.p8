@@ -130,6 +130,11 @@ main {
             graphics.fillrect(32, 24, 248, 136)
 
             word birthday = tui.datepicker(4, 3, 0, 0)
+            if tui.canceled {
+                txt.print("Aborted.")
+                txt.nl()
+                sys.exit(0)
+            }
             txt.plot(0, 2)
             txt.print("Birthdate: ") txt.chrout(' ')
             txt.print(dates.long_string(birthday, true)) txt.nl()
@@ -142,6 +147,11 @@ main {
                 graphics.colors(0, 0)
                 graphics.fillrect(32, 48, 248, 136)
                 word target = tui.datepicker(4, 6, 0, today())
+                if tui.canceled {
+                    txt.print("Aborted.")
+                    txt.nl()
+                    sys.exit(0)
+                }
 
                 bool scrolling = true
                 while scrolling and same_person and not done {
