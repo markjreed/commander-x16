@@ -10,9 +10,8 @@ it wil sort that array in place using [Shell's algorithm](https://en.wikipedia.o
 |--------|-----------|
 | README.md  | This file |
 | [loader.asm](loader.asm) | Assembly source for loader and function |
-| [loader.prg](loader.prg) | RUNnable executable that installs the USR() function|
+| [LOADER.PRG](LOADER.PRG) | RUNnable executable that installs the USR() function|
 | [SHELLSORT.BIN](SHELLSORT.BIN)  | Assembled and BLOADable function handler
-| [demo.bas](demo.bas)  | BASIC demo program
-| [demo1000.bas](demo1000.bas)  | Demo on longer array (1000 words)
-| [1000WORDS.TXT](1000WORDS.TXT)  | The 1000 words sorted by the demo
+| [demo.bas](demo.bas)  | Source code: short BASIC demo that BLOADs the routine and sorts a 10-word array
+| [pokedemo.bas](pokedemo.bas)  | Self-contained BASIC demo program that POKEs the handler into memory and sorts a 100-word array
 
