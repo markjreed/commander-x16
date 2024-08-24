@@ -8,3 +8,4 @@ Unless otherwise indicated in the individual project folder, all of the software
 | [hanoi](hanoi/README.md) | Animated solution of the Towers of Hanoi for N=8 (BASIC)
 | [matrix](matrix/README.md) | A PETSCII version of the digital rain display from _The Matrix_ (Prog8).
 | [langtons-ant](langtons-ant/README.md) | Simulation of [Langton's Ant](https://en.wikipedia.org/wiki/Langton's_Ant) (Prog8).
+| [shell-sort](shell-sort/README.md) | Implementation of [Shell's Sort](https://en.wikipedia.org/wiki/Shellsort) as a USR() routine that sorts a BASIC string array. (Assembly)
