@@ -232,7 +232,7 @@ dates {
         @(buffer) = ' '   buffer ++
         buffer += string.copy(conv.str_ub(cur_day), buffer)
         buffer += string.copy(", ", buffer)
-        string.copy(conv.str_uw(cur_year), buffer)
+        void string.copy(conv.str_uw(cur_year), buffer)
         return date_string
     }
 
@@ -318,7 +318,7 @@ dates {
     sub weekday_name(ubyte weekday, bool mixed_case) -> str {
         str[7] weekday_names = [ "Sunday", "Monday", "Tuesday", "Wednesday",
                                  "Thursday", "Friday", "Saturday" ]
-        string.copy(weekday_names[weekday], name_buffer)
+        void string.copy(weekday_names[weekday], name_buffer)
         if not mixed_case {
             name_buffer[0] = name_buffer[0] - 'A' + 'a'
         }
@@ -330,7 +330,7 @@ dates {
                                 "May",       "June",     "July",     "August",
                                 "September", "October",  "November", "December"
                               ]
-        string.copy(month_names[month - 1], name_buffer)
+        void string.copy(month_names[month - 1], name_buffer)
         if not mixed_case {
             name_buffer[0] = name_buffer[0] - 'A' + 'a'
         }

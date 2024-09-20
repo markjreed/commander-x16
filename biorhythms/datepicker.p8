@@ -51,7 +51,7 @@ tui {
              next  = dates.new(year, month+1, 1)
              days  = (next - first) as ubyte
              col1 =  lsb(dates.remainder(dates.weekday(first) - week_start, 7))
-             dates.weekday(dates.new(year, month, 1))
+             void dates.weekday(dates.new(year, month, 1))
              txt.plot(x + 3, y + 1)
              txt.print(month_titles[month-1])
              txt.plot(x + 24, y + 1)

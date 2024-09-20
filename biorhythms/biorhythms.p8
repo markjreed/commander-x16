@@ -36,7 +36,7 @@ main {
         txt.plot(0, 4)
         uword date = dates.long_string(target, true)
         txt.print("Marker: ") txt.print(date)
-        ubyte i
+        ubyte i, j
         for i in string.length(date) to 32 { txt.chrout(' ') }
         txt.nl()
         uword days = (target - birthday) as uword
@@ -74,7 +74,6 @@ main {
             graphics.line(day_width * (i as uword) + day_offset, chart_zero - 3,
                           day_width * (i as uword) + day_offset, chart_zero + 3)
         }
-        ubyte i, j
         float θ, sine
         txt.nl()
         for i in 0 to 2 {
@@ -90,13 +89,13 @@ main {
             if day == 0 day = cycle_lengths[i]
 
             graphics.colors(cycle_colors[i], cycle_colors[i])
-            θ = (day as float - 3.5) / cycle_lengths[i] as float * 2 * floats.π
+            θ = (day as float - 3.5) / (cycle_lengths[i] as float) * 2.0 * floats.π
             sine = floats.sin(θ)
             x1 = 0
             y1 = (chart_zero as float - (chart_max as float) * sine) as ubyte
             graphics.plot(x1, y1)
             for j in 0 to 40  {
-                θ = ((day - 3 + j + cycle_lengths[i]) % cycle_lengths[i]) as float / cycle_lengths[i] as float * 2 * floats.π
+                θ = ((day - 3 + j + cycle_lengths[i]) % cycle_lengths[i]) as float / (cycle_lengths[i] as float) * 2.0 * floats.π
                 sine = floats.sin(θ)
                 x2 =  4 + 8 * (j as uword) 
                 if x2 > 319 {
