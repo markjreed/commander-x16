@@ -32,22 +32,24 @@ main {
 
     sub banner(bool bitmap) {
 
-        if not bitmap  {
-            txt.color2(2, 1)
-            txt.clear_screen()
-            txt.chrout($12)
-            txt.print(stars)
-        } else {
+        if bitmap  {
             gfx2.clear_screen(1)
             gfx2.text_charset(2)
             gfx2.fillrect(0, 0, width-1, 8, 2)
             gfx2.text(0, 0, 1, gfx_stars)
             gfx2.text(width-32, 0, 1, gfx_stars)
+        } else {
+            txt.color2(2, 1)
+            txt.clear_screen()
+            txt.chrout($12)
+            txt.print(stars)
         }
         text_x = 32
         length = string.length(text_title)
         left = (72 - length)/2
-        if not bitmap {
+        if bitmap {
+            gfx2.text(32 + (left as uword) * 8, 0, 1, gfx_title)
+        } else {
             repeat left { 
                 txt.chrout(' ')
             }
@@ -57,15 +59,13 @@ main {
             }
             txt.print("****")
             txt.nl()
-        } else {
-            gfx2.text(32 + (left as uword) * 8, 0, 1, gfx_title)
         }
     }
 
     sub atoi(uword s) -> ubyte {
         ubyte result = 0
         ubyte digit
-        while @(s) {
+        while @(s) != 0 {
             digit = @(s)
             if digit < '0' or digit > '9' {
                 return result
@@ -79,7 +79,7 @@ main {
     sub randomize_grid() {
         for ant_y in height/3 to 2*height/3 {
             for ant_x in width/3 to 2*width/3 {
-                if math.rnd() & 1 { gfx2.plot(ant_x, ant_y, 0) }
+                if (math.rnd() & 1) != 0 { gfx2.plot(ant_x, ant_y, 0) }
             }
         }
     }
@@ -97,15 +97,15 @@ main {
         gfx2.fillrect(208, height-8, 40, 8, 2)
         gfx2.text(208, height-8, 1, gfx_directions[direction])
 
-        conv.str_uw(ant_x)
+        void conv.str_uw(ant_x)
         gfx2.fillrect(328, height-8, 24, 8, 2)
         gfx2.text(328, height-8, 1, conv.string_out)
 
-        conv.str_uw(ant_y)
+        void conv.str_uw(ant_y)
         gfx2.fillrect(392, height-8, 24, 8, 2)
         gfx2.text(392, height-8, 1, conv.string_out)
 
-        conv.str_uw(steps)
+        void conv.str_uw(steps)
         gfx2.fillrect(584, height-8, 40, 8, 2)
         gfx2.text(584, height-8, 1, conv.string_out)
     }
@@ -126,7 +126,7 @@ main {
         txt.print("initial direction (nesw, default=random): ")
         direction = 4
         do {
-            key = cbm.GETIN()
+            key = cbm.GETIN2()
             when key {
                 'n' -> { direction = 0 }
                 'e' -> { direction = 1 }
@@ -139,7 +139,7 @@ main {
         txt.print("\n\n")
         txt.print("initial grid (e)mpty or (r)andom (er, default=empty): ")
         do {
-            key = cbm.GETIN()
+            key = cbm.GETIN2()
         } until key == 'e' or key == 'r' or key == 13
         gfx2.screen_mode(2)
         banner(true)
@@ -149,7 +149,7 @@ main {
         while ant_x >= 0 and ant_x < width and ant_y >= 8 and ant_y < height-8 {
             color = gfx2.pget(ant_x, ant_y)
             gfx2.plot(ant_x, ant_y, 2)
-            if color {
+            if color != 0 {
                 ; white square, turn right
                 direction = (direction + 1) % 4
             } else {
@@ -157,15 +157,15 @@ main {
                 direction = (direction + 3) % 4
             }
             gfx2.plot(ant_x, ant_y, 1 - color)
-            ant_x = ant_x + dx[direction]
-            ant_y = ant_y + dy[direction]
+            ant_x = (ant_x + dx[direction]) as uword
+            ant_y = (ant_y + dy[direction]) as uword
             steps = steps + 1
             if steps % delay == 0 { update_status() }
         }
         update_status()
         key = 0
         do {
-            key = cbm.GETIN()
+            key = cbm.GETIN2()
         } until key != 0
         gfx2.screen_mode(0)
         txt.color2(0,1)
