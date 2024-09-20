@@ -132,7 +132,7 @@ main {
            for i in 0 to width - 1 {
 
                ; update all the drops moving fast enough to move this tick
-               if bottom[i] and ticks % speed_range < speed[i] {
+               if bottom[i] != 0 and ticks % speed_range < speed[i] {
 
                    ; determine the visible portion of the trail
                    j1 = bottom[i]
@@ -182,7 +182,7 @@ main {
                for i in 0 to width -1 {
                    if bottom[i] == 0 { available += 1 }
                }
-               if available {
+               if available != 0 {
                    i = math.rnd() % available
                    for j in 0 to width - 1 {
                        if bottom[j] == 0 {
@@ -209,10 +209,10 @@ main {
            ticks += 1
 
            ; handle any keypress that came in
-           key = cbm.GETIN()
+           key = cbm.GETIN2()
            when key {
                '0' -> { delay=0 key=0 }
-               '+' -> { if delay { delay-- } key = 0 }
+               '+' -> { if delay != 0 { delay-- } key = 0 }
                '-' -> { if delay < $ff { delay++ } key = 0 }
                'g' -> { all_green() key = 0 }
                'm' -> { mardi_gras() key = 0 }
