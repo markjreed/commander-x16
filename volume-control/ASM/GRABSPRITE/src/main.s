@@ -5,48 +5,30 @@ VERA_HADDR := $9F22
 VERA_DATA0 := $9F23
 VERA_DATA1 := $9F24
 VERA_CTRL  := $9F25
+R15L = $20
 SETLFS := $FFBA
 CHKOUT := $FFC9
 CLRCHN := $FFCC
 MCIOUT := $FEB1
+FB_cursor_position = $FEFF
+FB_cursor_nextline = $FF02
 BITMAP_END := $012C
-.org $0700
+.org $0600
 save:
-	tax
-	jsr CHKOUT
-	stz tosend
-	lda #<BITMAP_END
-	sta tosend+1
-	lda #>BITMAP_END
-	sta tosend+2
+  jsr CHKOUT
+  jsr FB_cursor_position
 @loop:
 	ldx #$23
-	ldy #$9f
-	lda tosend
+	ldy #$9F
+	lda #64
 	sec
 	jsr MCIOUT
-	bcs @error
-	stx tmp1
-	lda tosend
-	sec
-	sbc tmp1
-	sta tosend
-	lda tosend+1
-	sty tmp1
-	sbc tmp1
-	sta tosend+1
-	lda tosend+2
-	sbc #0
-	sta tosend+2
-	ora tosend
-	ora tosend+1
-	bne @loop
+    dec R15L
+    beq @done
+    jsr FB_cursor_nextline
+    bra @loop
 @done:
 @error:
 	jsr CLRCHN
 	rts
-.segment "BSS"
-tosend:
-	.res 3
-tmp1:
-	.res 1
+
