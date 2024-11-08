@@ -161,7 +161,7 @@ main {
                     chart(birthday, target)
 
                     txt.color2(13, 0)
-                    tui.center(26, "<- -> Move by week")
+                    tui.center(26, "<- -> Move by month")
                     tui.center(28, "New [D]ate  New [P]erson  [Q]uit")
                     ubyte key = txt.waitkey()
                     when key {
