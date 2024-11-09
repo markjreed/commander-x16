@@ -11,9 +11,11 @@ main {
     ubyte[] cycle_lengths = [ 23, 28, 33 ]
     str[]   cycle_names   = [ " Physical", " Emotional", " Mental  " ]
     ubyte[] cycle_colors  = [ 2, 4, 6 ]
+    const uword width        = 320
+    const uword height       = 240
     const uword chart_x      =   0
     const ubyte chart_y      =  76
-    const uword chart_width  = 320
+    const uword chart_width  = width
     const ubyte chart_height = 119
     const ubyte chart_zero   = chart_y + chart_height / 2 + 1
     const ubyte chart_max    = chart_zero - chart_y - 4
@@ -132,9 +134,7 @@ main {
 
             word birthday = tui.datepicker(4, 3, 0, 0)
             if tui.canceled {
-                txt.print("Aborted.")
-                txt.nl()
-                sys.exit(0)
+                exit(1)
             }
             txt.plot(0, 2)
             txt.print("Birthdate: ") txt.chrout(' ')
@@ -149,9 +149,7 @@ main {
                 graphics.fillrect(32, 48, 248, 136)
                 word target = tui.datepicker(4, 6, 0, today())
                 if tui.canceled {
-                    txt.print("Aborted.")
-                    txt.nl()
-                    sys.exit(0)
+                    exit(1)
                 }
 
                 bool scrolling = true
@@ -174,5 +172,16 @@ main {
                 }
             }
         }
+    }
+
+    sub exit(ubyte status) {
+        if status > 0 {
+            graphics.colors(0, 0)
+            graphics.fillrect(0, 0, width, height)
+            txt.clear_screen()
+            txt.print("Aborted.")
+            txt.nl()
+        }
+        sys.exit(status)
     }
 }
