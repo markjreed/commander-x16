@@ -7,7 +7,7 @@
 ; (https://choosealicense.com/licenses/mit/)
 
 %import conv
-%import string
+%import strings
 
 dates {
 
@@ -198,9 +198,9 @@ dates {
     }
 
     sub iso_string(word date, bool weekly, bool mixed_case) -> uword {
-        uword buffer = date_string
+        ^^ubyte buffer = &date_string
         if weekly {
-            buffer += string.copy(conv.str_uw(iso_year(date)), buffer)
+            buffer += strings.copy(conv.str_uw(iso_year(date)), buffer)
             if mixed_case {
                 @(buffer) = 'W'
             } else {
@@ -212,7 +212,7 @@ dates {
             @(buffer) = iso_weekday(date) + '0' buffer++
             @(buffer) = 0
         } else {
-            buffer += string.copy(conv.str_uw(year(date)), buffer)
+            buffer += strings.copy(conv.str_uw(year(date)), buffer)
             @(buffer) = '-' buffer++
             str_ub2(month(date), buffer) buffer += 2
             @(buffer) = '-' buffer++
@@ -221,19 +221,19 @@ dates {
         return date_string
     }
 
-    sub long_string(word date, bool mixed_case) -> uword {
+    sub long_string(word date, bool mixed_case) -> ^^ubyte {
         if date != cur_date {
             decode_date(date)
         }
-        uword buffer = date_string
-        buffer += string.copy(weekday_name(weekday(date), mixed_case), buffer)
-        buffer += string.copy(", ", buffer)
-        buffer += string.copy(month_name(cur_month, mixed_case), buffer)
+        ^^ubyte buffer = &date_string
+        buffer += strings.copy(weekday_name(weekday(date), mixed_case), buffer)
+        buffer += strings.copy(", ", buffer)
+        buffer += strings.copy(month_name(cur_month, mixed_case), buffer)
         @(buffer) = ' '   buffer ++
-        buffer += string.copy(conv.str_ub(cur_day), buffer)
-        buffer += string.copy(", ", buffer)
-        void string.copy(conv.str_uw(cur_year), buffer)
-        return date_string
+        buffer += strings.copy(conv.str_ub(cur_day), buffer)
+        buffer += strings.copy(", ", buffer)
+        void strings.copy(conv.str_uw(cur_year), buffer)
+        return &date_string
     }
 
     ;; end public API
@@ -315,31 +315,31 @@ dates {
     }
 
     ubyte[10] name_buffer
-    sub weekday_name(ubyte weekday, bool mixed_case) -> str {
+    sub weekday_name(ubyte weekday, bool mixed_case) -> ^^ubyte {
         str[7] weekday_names = [ "Sunday", "Monday", "Tuesday", "Wednesday",
                                  "Thursday", "Friday", "Saturday" ]
-        void string.copy(weekday_names[weekday], name_buffer)
+        void strings.copy(weekday_names[weekday], name_buffer)
         if not mixed_case {
             name_buffer[0] = name_buffer[0] - 'A' + 'a'
         }
-        return name_buffer
+        return &name_buffer
     }
 
-    sub month_name(ubyte month, bool mixed_case) -> str {
+    sub month_name(ubyte month, bool mixed_case) -> ^^ubyte {
         str[12] month_names = [ "January",   "February", "March",    "April",
                                 "May",       "June",     "July",     "August",
                                 "September", "October",  "November", "December"
                               ]
-        void string.copy(month_names[month - 1], name_buffer)
+        void strings.copy(month_names[month - 1], name_buffer)
         if not mixed_case {
             name_buffer[0] = name_buffer[0] - 'A' + 'a'
         }
-        return name_buffer
+        return &name_buffer
     }
 
     ; print a value < 100 in 2 places, with a leading 0 if < 10
     sub str_ub2(ubyte value, uword addr) {
-        void string.copy(conv.str_ub0(value)+1, addr)
+        void strings.copy(conv.str_ub0(value)+1, addr)
     }
 
     ; a version of divmod that works on negative numbers.

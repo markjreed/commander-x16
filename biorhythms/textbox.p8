@@ -1,4 +1,4 @@
-%import string
+%import strings
 %import textio
 
 tui {
@@ -33,7 +33,7 @@ tui {
         }
         if title != 0 {
             ubyte[81] buffer
-            ubyte titlen = string.copy(title, buffer)
+            ubyte titlen = strings.copy(title, buffer)
             ubyte left
             if titlen >= width - 2 {
                 buffer[width-2] = 0

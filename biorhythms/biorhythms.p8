@@ -3,7 +3,7 @@
 %import dates
 %import floats
 %import graphics
-%import string
+%import strings
 %import textio
 %import tui
 
@@ -41,7 +41,7 @@ main {
         txt.plot(0, 4)
         uword date = dates.long_string(target, true)
         txt.print("Marker: ") txt.print(date)
-        for i in string.length(date) to 32 { txt.chrout(' ') }
+        for i in strings.length(date) to 32 { txt.chrout(' ') }
         txt.nl()
         uword days = (target - birthday) as uword
         txt.print("Day #") txt.print_uw(days) txt.nl()

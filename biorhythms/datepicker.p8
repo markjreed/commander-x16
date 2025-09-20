@@ -1,5 +1,5 @@
 %import conv
-%import string
+%import strings
 %import textio
 %import textbox
 %import dates
@@ -174,7 +174,7 @@ tui {
                       13 -> { done = true }
                  }
              } else if cursor < 5 {
-                 void string.copy(conv.str_uw(year), yrbuf)
+                 void strings.copy(conv.str_uw(year), yrbuf)
                  when key {
                      9,13,17,24,145 -> { cursor = 0 }
                      27 -> {

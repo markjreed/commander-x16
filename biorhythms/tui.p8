@@ -1,13 +1,12 @@
-%import string
+%import strings
 %import syslib
 %import textio
 
 tui {
-    %option merge
     sub center(ubyte line, str message) {
         ubyte width, height, length, col
         width, height = cbm.SCREEN()
-        length = string.length(message) 
+        length = strings.length(message) 
         col = 0
         if length < width {
             col = (width - length) / 2
