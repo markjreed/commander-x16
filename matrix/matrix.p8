@@ -133,7 +133,7 @@ main {
             return math.rnd() >> 1
         }
         ubyte char = math.rnd() % 192 
-        return char + if char < 96 32 else 64
+        return char + if char < 96 then 32 else 64
     }
 
     sub start() {
