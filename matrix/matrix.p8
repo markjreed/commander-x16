@@ -23,6 +23,9 @@ main {
     ; range of possible speeds for individual drops
     const ubyte speed_range = 4
 
+    ; flag indicating whether we're in ISO mode or not
+    bool iso_mode
+
     ; color gradients from the default palette
     ubyte[] greens   = [ $01, $8f, $88, $8e, $87, $8d, $86, $8c,
                          $85, $8b, $84, $8a, $83, $89, $82, $00 ]
@@ -42,7 +45,7 @@ main {
     ubyte[80] color
 
     ; a place to save colors from the palette so they can be restored
-    uword[256] @split saved_colors
+    uword[256] saved_colors
 
     ; flag indicating whether colors have been saved above or not
     bool saved
@@ -71,6 +74,7 @@ main {
               jsr cbm.SCREEN
               stx p8v_width
               sty p8v_height
+              rts
         }}
     }
 
@@ -105,6 +109,33 @@ main {
         }
     }
 
+    ; switch to ISO/kana mode
+    sub iso() {
+        if not iso_mode {
+            txt.iso()
+            cx16.screen_set_charset(12, 0)
+            iso_mode = true
+        }
+    }
+
+    ; switch to PETSCII mode
+    sub petscii() {
+        if iso_mode {
+            txt.iso_off()
+            txt.uppercase()
+            iso_mode = false
+        }
+    }
+        
+    ; pick a random character
+    sub random_char() -> ubyte {
+        if not iso_mode {
+            return math.rnd() >> 1
+        }
+        ubyte char = math.rnd() % 192 
+        return char + if char < 96 32 else 64
+    }
+
     sub start() {
         ; seed RNG from RTC
         void cx16.clock_get_date_time()
@@ -113,6 +144,7 @@ main {
         ; enable 256-color text mode
         cx16.VERA_L1_CONFIG = (cx16.VERA_L1_CONFIG & ~T256C) | T256C
 
+        ; and kana font
         ; get screen dimensions - works in non-default resolutions
         get_screen()
         txt.clear_screen()
@@ -139,7 +171,7 @@ main {
 
                    if j1 <= height {
                        ; if the bottom of drop is visible, put a random white character there
-                       txt.setcc(i, j1-1, math.rnd()>>1, 1)
+                       txt.setcc(i, j1-1, random_char(), 1)
                    } else {
                        ; otherwise cut off at the bottom of the screen
                        j1 = height
@@ -214,8 +246,10 @@ main {
                '0' -> { delay=0 key=0 }
                '+' -> { if delay != 0 { delay-- } key = 0 }
                '-' -> { if delay < $ff { delay++ } key = 0 }
-               'g' -> { all_green() key = 0 }
-               'm' -> { mardi_gras() key = 0 }
+               'G','g',iso:'g' -> { all_green() key = 0 }
+               'M','m',iso:'m' -> { mardi_gras() key = 0 }
+               'I','i',iso:'i' -> { iso() key = 0 }
+               'P','p',iso:'p' -> { petscii() key = 0 }
            }
         } until key != 0
 
@@ -223,5 +257,6 @@ main {
         txt.color2(5,0)
         txt.clear_screen()
         mardi_gras()
+        txt.chrout(key)
     }
 }
